@@ -1,0 +1,50 @@
+br
+.container
+    .row
+        .col-md-12
+            .panel.panel-default
+                .panel-heading
+                    .panel-title
+                        span Injury recovery calculator
+                .panel-body
+                    form.form-horizontal(name="calcForm")
+                        .form-group
+                            label.col-md-2 Date
+                            .col-md-10
+                                .input-group
+                                    input.form-control(type="text", datepicker-popup="{{format}}",
+                                    ng-model="mytime",
+                                    is-open="opened",
+                                    datepicker-options="dateOptions"
+                                    date-disabled="disabled(date, mode)"
+                                    ng-required="true"
+                                    close-text="Close")
+                                    .input-group-btn
+                                        button.btn.btn-default(type="button",ng-click="open($event)")
+                                            i.glyphicon.glyphicon-calendar
+                        .form-group
+                            label.col-md-2 Time
+                            .col-md-5
+                                timepicker(
+                                ng-model="mytime",
+                                ng-change="changed()",
+                                hour-step="hstep",
+                                minute-step="mstep",
+                                show-meridian="ismeridian",
+                                required
+                                )
+
+                        .form-group
+                            label.col-md-2 Hours
+                            .col-md-10
+                                input.form-control(
+                                ng-model="hours",
+                                type="number",required
+                                )
+
+                        .form-group(ng-if="result")
+                            .col-md-3
+                                pre.alert.alert-info {{ result | date:'medium'}}
+                        .form-group
+                            .col-md-12
+                                button.btn.btn-success(ng-click="send()",ng-disabled="calcForm.$invalid") Send
